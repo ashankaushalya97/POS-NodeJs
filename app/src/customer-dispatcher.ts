@@ -32,15 +32,23 @@ router.post('',(req, res) => {
 
 });
 
-router.put('',(req, res) => {
+router.put('/:id',(req, res) => {
+    if (req.body.id && req.body.name && req.body.address && typeof req.body.id == 'string' && req.body.id.trim().length>0 && req.params.id==req.body.id){
+        res.status(400);
+        res.send();
+        return;
+    }
+
     // language=SQL
-    pool.query('UPDATE customer SET name=? , address=? WHERE id=?',[req.body.name,req.body.address,req.body.id] ,(err, results) => {
+    pool.query('UPDATE customer SET name=? , address=? WHERE id=?',[req.body.name,req.body.address,req.params.id] ,(err, results) => {
         if (err){
             res.status(500);
             res.send("error!");
+            res.send();
             return;
         }
         res.status(204);
+        res.send();
     })
 });
 
@@ -48,13 +56,14 @@ router.delete('/:id',(req, res) => {
     console.log(req.params.id);
 
     // language=SQL
-    // pool.query('DELETE FROM customer where id=?',req.get("id") ,(err, results) => {
-    //     if (err){
-    //         res.status(500);
-    //         res.send("error!");
-    //         return;
-    //     }
-    //     res.status(204);
-    // })
+    pool.query('DELETE FROM customer where id=?',[req.params.id] ,(err, results) => {
+        if (err){
+            res.status(500);
+            res.send("error!");
+            return;
+        }
+        res.status(204);
+        res.send();
+    })
 });
 
