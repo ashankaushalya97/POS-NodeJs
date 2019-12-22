@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var main_dispatcher_1 = __importDefault(require("./main-dispatcher"));
 var app = express();
-app.listen(5050, function () { return ("Server has been started!"); });
+app.listen(5050, function () { return console.log("Server has been started!"); });
 app.use(main_dispatcher_1.default);
