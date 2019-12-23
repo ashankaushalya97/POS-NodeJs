@@ -48,6 +48,7 @@ router.post('',(req, res) => {
                     });
 
                 }
+                connection.commit();
                 res.status(201);
                 res.send("<h1>Order Detail inserted!!</h1>");
 
